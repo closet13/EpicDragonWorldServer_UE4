@@ -8,14 +8,14 @@ using System.Collections.Generic;
 public class RegionHolder
 {
     private readonly int x;
-    private readonly int z;
+    private readonly int y;
     private readonly ConcurrentDictionary<long, WorldObject> objects = new ConcurrentDictionary<long, WorldObject>();
     private RegionHolder[] surroundingRegions;
 
-    public RegionHolder(int x, int z)
+    public RegionHolder(int x, int y)
     {
         this.x = x;
-        this.z = z;
+        this.y = y;
     }
 
     public void SetSurroundingRegions(RegionHolder[] surroundingRegions)
@@ -50,14 +50,14 @@ public class RegionHolder
         return x;
     }
 
-    public int GetZ()
+    public int GetY()
     {
-        return z;
+        return y;
     }
 
     public override int GetHashCode()
     {
-        return x ^ z;
+        return x ^ y;
     }
 
     public override bool Equals(object obj)
@@ -67,11 +67,11 @@ public class RegionHolder
             return false;
         }
         RegionHolder region = ((RegionHolder)obj);
-        return x == region.GetX() && z == region.GetZ();
+        return x == region.GetX() && y == region.GetY();
     }
 
     public override string ToString()
     {
-        return "Region [" + x + " " + z + "]";
+        return "Region [" + x + " " + y + "]";
     }
 }

@@ -12,7 +12,7 @@ public class WorldManager
     private static readonly int MOVEMENT_BROADCAST_RADIUS = VISIBILITY_RADIUS + 100; // Need the extra distance to send location of objects getting out of range.
     private static readonly double REGION_RADIUS = Math.Sqrt(VISIBILITY_RADIUS);
     private static readonly int REGION_SIZE_X = (int)(Config.WORLD_MAXIMUM_X / REGION_RADIUS);
-    private static readonly int REGION_SIZE_Z = (int)(Config.WORLD_MAXIMUM_Z / REGION_RADIUS);
+    private static readonly int REGION_SIZE_Y = (int)(Config.WORLD_MAXIMUM_Y / REGION_RADIUS);
     private static readonly RegionHolder[][] REGIONS = new RegionHolder[REGION_SIZE_X][];
     private static readonly List<GameClient> ONLINE_CLIENTS = new List<GameClient>();
     private static readonly ConcurrentDictionary<long, Player> PLAYER_OBJECTS = new ConcurrentDictionary<long, Player>();
@@ -24,57 +24,57 @@ public class WorldManager
         // Initialize regions.
         for (int x = 0; x < REGION_SIZE_X; x++)
         {
-            REGIONS[x] = new RegionHolder[REGION_SIZE_Z];
-            for (int z = 0; z < REGION_SIZE_Z; z++)
+            REGIONS[x] = new RegionHolder[REGION_SIZE_Y];
+            for (int y = 0; y < REGION_SIZE_Y; y++)
             {
-                REGIONS[x][z] = new RegionHolder(x, z);
+                REGIONS[x][y] = new RegionHolder(x, y);
             }
         }
 
         // Set surrounding regions.
         for (int x = 0; x < REGION_SIZE_X; x++)
         {
-            for (int z = 0; z < REGION_SIZE_Z; z++)
+            for (int y = 0; y < REGION_SIZE_Y; y++)
             {
                 List<RegionHolder> surroundingRegions = new List<RegionHolder>();
                 for (int sx = x - 1; sx <= (x + 1); sx++)
                 {
-                    for (int sz = z - 1; sz <= (z + 1); sz++)
+                    for (int sy = y - 1; sy <= (y + 1); sy++)
                     {
-                        if (((sx >= 0) && (sx < REGION_SIZE_X) && (sz >= 0) && (sz < REGION_SIZE_Z)))
+                        if (((sx >= 0) && (sx < REGION_SIZE_X) && (sy >= 0) && (sy < REGION_SIZE_Y)))
                         {
-                            surroundingRegions.Add(REGIONS[sx][sz]);
+                            surroundingRegions.Add(REGIONS[sx][sy]);
                         }
                     }
                 }
-                REGIONS[x][z].SetSurroundingRegions(surroundingRegions.ToArray());
+                REGIONS[x][y].SetSurroundingRegions(surroundingRegions.ToArray());
             }
         }
 
-        LogManager.Log("WorldManager: Initialized " + REGION_SIZE_X + " by " + REGION_SIZE_Z + " regions.");
+        LogManager.Log("WorldManager: Initialized " + REGION_SIZE_X + " by " + REGION_SIZE_Y + " regions.");
     }
 
     public static RegionHolder GetRegion(WorldObject obj)
     {
         int x = (int)(obj.GetLocation().GetX() / REGION_RADIUS);
-        int z = (int)(obj.GetLocation().GetZ() / REGION_RADIUS);
+        int y = (int)(obj.GetLocation().GetY() / REGION_RADIUS);
         if (x < 0)
         {
             x = 0;
         }
-        if (z < 0)
+        if (y < 0)
         {
-            z = 0;
+            y = 0;
         }
         if (x >= REGION_SIZE_X)
         {
             x = REGION_SIZE_X - 1;
         }
-        if (z >= REGION_SIZE_Z)
+        if (y >= REGION_SIZE_Y)
         {
-            z = REGION_SIZE_Z - 1;
+            y = REGION_SIZE_Y - 1;
         }
-        return REGIONS[x][z];
+        return REGIONS[x][y];
     }
 
     public static void AddObject(WorldObject obj)

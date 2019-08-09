@@ -11,7 +11,7 @@ public class WorldObject
     private readonly long objectId = IdManager.GetNextId();
     private readonly DateTime spawnTime = DateTime.Now;
     private AnimationHolder animations = null;
-    private LocationHolder location = new LocationHolder(0, -1000, 0);
+    private LocationHolder location = new LocationHolder(0, 0, -1000);
     private RegionHolder region = null;
     private bool isTeleporting = false;
 

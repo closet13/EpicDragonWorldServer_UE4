@@ -93,7 +93,7 @@ public class Config
         ENCRYPTION_PRIVATE_PASSWORD = Encoding.ASCII.GetBytes(networkConfigs.GetString("PrivatePassword", "1234567890123456"));
 
         ConfigReader playerConfigs = new ConfigReader(PLAYER_CONFIG_FILE);
-        string[] startingLocation = playerConfigs.GetString("StartingLocation", "3924.109;67.42678;2329.238").Split(";");
+        string[] startingLocation = playerConfigs.GetString("StartingLocation", "3924.109;2329.238;67.42678").Split(";");
         STARTING_LOCATION = new LocationHolder(float.Parse(startingLocation[0], CultureInfo.InvariantCulture), float.Parse(startingLocation[1], CultureInfo.InvariantCulture), float.Parse(startingLocation[2], CultureInfo.InvariantCulture), startingLocation.Length > 3 ? float.Parse(startingLocation[3], CultureInfo.InvariantCulture) : 0);
         STARTING_ITEMS.Clear();
         foreach (string itemString in playerConfigs.GetString("StartingItems", "").Split(";"))
@@ -117,10 +117,10 @@ public class Config
         ConfigReader worldConfigs = new ConfigReader(WORLD_CONFIG_FILE);
         WORLD_MINIMUM_X = worldConfigs.GetFloat("MinimumX", -558.8f);
         WORLD_MAXIMUM_X = worldConfigs.GetFloat("MaximumX", 4441.2f);
-        WORLD_MINIMUM_Y = worldConfigs.GetFloat("MinimumY", -100f);
-        WORLD_MAXIMUM_Y = worldConfigs.GetFloat("MaximumY", 1000f);
-        WORLD_MINIMUM_Z = worldConfigs.GetFloat("MinimumZ", -1445.3f);
-        WORLD_MAXIMUM_Z = worldConfigs.GetFloat("MaximumZ", 3554.7f);
+        WORLD_MINIMUM_Y = worldConfigs.GetFloat("MinimumY", -1445.3f);
+        WORLD_MAXIMUM_Y = worldConfigs.GetFloat("MaximumY", 3554.7f);
+        WORLD_MINIMUM_Z = worldConfigs.GetFloat("MinimumZ", -100f);
+        WORLD_MAXIMUM_Z = worldConfigs.GetFloat("MaximumZ", 1000f);
 
         LogManager.Log("Configs: Initialized.");
     }
