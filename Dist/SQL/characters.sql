@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS `characters` (
+  `account` varchar(20) DEFAULT NULL,
+  `name` varchar(25) DEFAULT NULL,
+  `slot` int(2) DEFAULT '0',
+  `selected` tinyint(1) DEFAULT '1',
+  `race` int(2) DEFAULT '0',
+  `height` float DEFAULT '0.5',
+  `belly` float DEFAULT '0.5',
+  `hair_type` int(4) DEFAULT '0',
+  `hair_color` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0x29222B,
+  `skin_color` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0xF1D1BD,
+  `eye_color` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0x29222B,
+  `x` float DEFAULT '4519.419',
+  `y` float DEFAULT '67.86826',
+  `z` float DEFAULT '3830.602',
+  `heading` float DEFAULT '0',
+  `experience` int(8) DEFAULT '0',
+  `hp` int(8) DEFAULT '1',
+  `mp` int(8) DEFAULT '1',
+  `access_level` int(2) DEFAULT '0',
+  `creation_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
