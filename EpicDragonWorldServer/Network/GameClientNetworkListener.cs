@@ -88,11 +88,16 @@ public class GameClientNetworkListener
                 // Get packet data length.
                 await networkStream.ReadAsync(bufferLength, 0, 2);
                 length = BitConverter.ToInt16(bufferLength);
+                LogManager.Log("--------------------");
+                LogManager.Log("Received " + length + " bytes.");
+				LogManager.Log("--------------------");
                 // Get packet data.
                 bufferData = new byte[length];
                 await networkStream.ReadAsync(bufferData, 0, length);
+                // TODO: Decrypt.
+                // GameClientPacketHandler.Handle(gameClient, new ReceivablePacket(Encryption.Decrypt(bufferData)));
                 // Handle packet.
-                GameClientPacketHandler.Handle(gameClient, new ReceivablePacket(Encryption.Decrypt(bufferData)));
+                GameClientPacketHandler.Handle(gameClient, new ReceivablePacket(bufferData));
             }
             catch (Exception)
             {

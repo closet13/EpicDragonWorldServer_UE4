@@ -20,11 +20,11 @@ public class GameServer
 
         LogManager.Init();
         Config.Load();
-        DatabaseManager.Init();
-        WorldManager.Init();
+        //DatabaseManager.Init();
+        //WorldManager.Init();
 
-        SkillData.Load();
-        ItemData.Load();
+        //SkillData.Load();
+        //ItemData.Load();
 
         // Post info.
         Util.PrintSection("Info");

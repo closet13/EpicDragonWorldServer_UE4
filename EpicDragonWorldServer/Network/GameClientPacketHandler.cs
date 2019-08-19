@@ -6,6 +6,7 @@ public class GameClientPacketHandler
 {
     public static void Handle(GameClient client, ReceivablePacket packet)
     {
+        /*
         switch (packet.ReadShort()) // Packet id.
         {
             case 1:
@@ -60,5 +61,21 @@ public class GameClientPacketHandler
                 new ChatRequest(client, packet);
                 break;
         }
+		*/
+
+		// Test receive.
+		LogManager.Log("" + packet.ReadByte());
+        LogManager.Log("" + packet.ReadShort());
+        LogManager.Log("" + packet.ReadInt());
+        LogManager.Log("" + packet.ReadLong());
+        LogManager.Log("" + packet.ReadFloat());
+        LogManager.Log("" + packet.ReadDouble());
+        LogManager.Log("" + packet.ReadString());
+
+		// Test send.
+        SendablePacket send = new SendablePacket();
+        send.WriteShort(1); // id
+        send.WriteString("All is good!");
+        client.ChannelSend(send);
     }
 }
